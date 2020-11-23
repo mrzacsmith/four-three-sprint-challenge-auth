@@ -4,7 +4,6 @@ const router = require('express').Router();
 
 const User = require('../user/user-model');
 
-const validateCredentials = require('../middleware/validate-credentials');
 const uniqueUsername = require('../middleware/unique-username');
 const userExists = require('../middleware/user-exists');
 
@@ -21,7 +20,7 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-router.post('/register', validateCredentials, uniqueUsername, async (req, res) => {
+router.post('/register', uniqueUsername, async (req, res) => {
   try {
     const { username, password } = req.body;
     const newUser = await User.insert({
@@ -34,7 +33,7 @@ router.post('/register', validateCredentials, uniqueUsername, async (req, res) =
   }
 });
 
-router.post('/login', validateCredentials, userExists, async (req, res) => {
+router.post('/login', userExists, async (req, res) => {
   try {
     const { body: { password }, user } = req;
     if (bcrypt.compareSync(password, user.password)) {

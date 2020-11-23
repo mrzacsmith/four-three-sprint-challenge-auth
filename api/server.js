@@ -2,7 +2,9 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 
+const validate = require('./middleware/validate-credentials.js');
 const restricted = require('./middleware/restricted-endpoint.js');
+
 const authRouter = require('./auth/auth-router.js');
 const jokesRouter = require('./jokes/jokes-router.js');
 
@@ -12,7 +14,7 @@ server.use(helmet());
 server.use(cors());
 server.use(express.json());
 
-server.use('/api/auth', authRouter);
+server.use('/api/auth', validate, authRouter);
 server.use('/api/jokes', restricted, jokesRouter);
 
 module.exports = server;
