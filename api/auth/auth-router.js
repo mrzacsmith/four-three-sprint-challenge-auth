@@ -1,10 +1,13 @@
 const router = require('express').Router();
 
-router.post('/register', (req, res) => {
+const validateCredentials = require('../middleware/validate-credentials');
+const uniqueUsername = require('../middleware/unique-username');
+
+router.post('/register', validateCredentials, uniqueUsername, (req, res) => {
   // implement registration
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', validateCredentials, (req, res) => {
   // implement login
 });
 
