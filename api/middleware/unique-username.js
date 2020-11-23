@@ -5,7 +5,7 @@ module.exports = async function (req, res, next) {
   const user = await User.getByUsername(username);
 
   if (user) {
-    res.status(400).json({ message: 'this username already exists in the db' });
+    res.status(400).json({ message: 'this username already exists' });
   } else {
     next();
   }
