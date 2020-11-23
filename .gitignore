@@ -1,8 +1,8 @@
 # Mac Cruft
 .DS_Store
 
-# For students using Yarn, the package-lock.json caused errors when deploying to Heroku
-package-lock.json
+# VSCode
+.vscode
 
 # Logs
 logs
