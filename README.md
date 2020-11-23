@@ -6,7 +6,7 @@ This challenge allows you to practice the concepts and techniques learned over t
 
 This is an individual assessment. All work must be your own. Your challenge score is a measure of your ability to work independently using the material covered through this sprint. You need to demonstrate proficiency in the concepts and objectives introduced and practiced in preceding days.
 
-You are not allowed to collaborate during the sprint challenge. However, you are encouraged to follow the twenty-minute rule and seek support from your TL if you need direction.
+You are not allowed to collaborate during the sprint challenge. However, you are encouraged to follow the twenty-minute rule.
 
 _You have **three hours** to complete this challenge. Plan your time accordingly._
 
@@ -39,7 +39,6 @@ You are expected to be able to answer questions in these areas. Your responses c
 ### Task 1: Project Set Up
 
 - [ ] Create a forked copy of this project
-- [ ] Add your team lead as collaborator on Github
 - [ ] Clone your OWN version of the repository (Not Lambda's by mistake!)
 - [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
 - [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly
@@ -49,10 +48,9 @@ You are expected to be able to answer questions in these areas. Your responses c
 
 Your finished project must include all of the following requirements:
 
-- [ ] An authentication workflow with functionality for account creation and login implemented inside `/auth/auth-router.js`. A `user` has `username` and `password`. Both properties are required.
-- [ ] Middleware used to restrict access to resources for non authenticated requests. Use the file: `./auth/authenticate-middleware.js` as a starting point.
-- [ ] Configuration for running tests using `Jest`.
-- [ ] A **minimum o 2 tests** per API endpoint.
+- [ ] An authentication workflow with functionality for account creation and login implemented inside `api/auth/auth-router.js`. A `user` has `username` and `password`. Both properties are required.
+- [ ] Middleware used to restrict access to resources for non authenticated requests. Use the file: `api/auth/auth-middleware.js` as a starting point.
+- [ ] A **minimum of 2 tests** per API endpoint. Use the file `api/server.test.js` as a starting point.
 
 **Note**: the database already has the users table, but if you run into issues, the migrations are available.
 
@@ -71,6 +69,4 @@ After finishing your required elements, you can push your work further. These go
 
 Follow these steps for completing your project.
 
-- [ ] Submit a Pull-Request to merge <firstName-lastName> Branch into master (student's Repo). **Please don't merge your own pull request**
-- [ ] Add your team lead as a reviewer on the pull-request
-- [ ] Your team lead will count the project as complete after receiving your pull-request
+- [ ] Submit in Canvas a Pull-Request to merge `<firstName-lastName>` Branch into main (student's Repo). **Please don't merge your own pull request**
