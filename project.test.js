@@ -139,17 +139,17 @@ describe('server.js', () => {
         const res = await request(server).get('/api/jokes')
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message on missing token', async () => {
+      it('responds with a "token required" message on missing token', async () => {
         const res = await request(server).get('/api/jokes')
-        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/wants/i))
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
       })
       it('responds with an error status code on invalid token', async () => {
         const res = await request(server).get('/api/jokes').set('Authorization', 'bad token')
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message on invalid token', async () => {
+      it('responds with a "token invalid" message on invalid token', async () => {
         const res = await request(server).get('/api/jokes').set('Authorization', 'bad token')
-        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/valid/i))
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/invalid/i))
       })
       it('responds with the jokes on valid token', async () => {
         const { body: { token } } = await request(server).post('/api/auth/login').send(userA)
