@@ -5,7 +5,7 @@ const router = require('express').Router();
 const User = require('../user/user-model');
 
 const uniqueUsername = require('../middleware/unique-username');
-const userExists = require('../middleware/user-exists');
+const usernameExists = require('../middleware/username-exists');
 
 const secret = process.env.SECRET || 'the secret';
 
@@ -33,7 +33,7 @@ router.post('/register', uniqueUsername, async (req, res) => {
   }
 });
 
-router.post('/login', userExists, async (req, res) => {
+router.post('/login', usernameExists, async (req, res) => {
   try {
     const { body: { password }, user } = req;
     if (bcrypt.compareSync(password, user.password)) {

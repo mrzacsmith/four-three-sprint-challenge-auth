@@ -5,6 +5,10 @@ const db = require('./data/dbConfig')
 const jokes = require('./api/jokes/jokes-data')
 
 const userA = { username: 'foo', password: 'bar' }
+const userB = { username: 'fizz', password: 'buzz' }
+const userC = { username: 'foo', password: 'buzz' }
+
+let registeredUserA
 
 beforeAll(async () => {
   await db.migrate.latest()
@@ -23,10 +27,10 @@ describe('server.js', () => {
   // 👉 PROJECTS
   // 👉 PROJECTS
   describe('auth endpoints', () => {
-    beforeEach(async () => {
-      await db('users').truncate()
-    })
     describe('[POST] /api/auth/register', () => {
+      beforeEach(async () => {
+        await db('users').truncate()
+      })
       it('can add a new user with a bcrypted password to the users table', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const user = await db('users').first()
@@ -76,7 +80,52 @@ describe('server.js', () => {
       })
     })
     describe('[POST] /api/auth/login', () => {
-
+      beforeEach(async () => {
+        await db('users').truncate()
+        await request(server).post('/api/auth/register').send(userA)
+        registeredUserA = await db('users').first()
+      })
+      it('responds with a proper status code on successful login', async () => {
+        const res = await request(server).post('/api/auth/login').send(userA)
+        expect(res.status).toBe(200)
+      })
+      it('responds with a welcome message and a token on successful login', async () => {
+        const res = await request(server).post('/api/auth/login').send(userA)
+        expect(res.body).toHaveProperty('message')
+        expect(res.body).toHaveProperty('token')
+      })
+      it('responds with an error status code if username or password are not sent', async () => {
+        let res = await request(server).post('/api/auth/login').send({})
+        expect(res.status + '').toMatch(/4|5/)
+        res = await request(server).post('/api/auth/login').send({ username: 'foo' })
+        expect(res.status + '').toMatch(/4|5/)
+        res = await request(server).post('/api/auth/login').send({ password: 'bar' })
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message if username or password are not sent', async () => {
+        let res = await request(server).post('/api/auth/login').send({})
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+        res = await request(server).post('/api/auth/login').send({ username: 'foo' })
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+        res = await request(server).post('/api/auth/login').send({ password: 'bar' })
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+      })
+      it('responds with a proper status code on non-existing username', async () => {
+        const res = await request(server).post('/api/auth/login').send(userB)
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message on non-existing username', async () => {
+        const res = await request(server).post('/api/auth/login').send(userB)
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/exists/i))
+      })
+      it('responds with a proper status code on invalid password', async () => {
+        const res = await request(server).post('/api/auth/login').send(userC)
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message on invalid password', async () => {
+        const res = await request(server).post('/api/auth/login').send(userC)
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/incorrect/i))
+      })
     })
   })
 
