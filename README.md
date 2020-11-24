@@ -41,7 +41,8 @@ You are expected to be able to answer questions in these areas.
 
 Your finished project must include all of the following requirements:
 
-- [ ] An authentication workflow with functionality for account creation and login implemented inside `api/auth/auth-router.js`. A `user` has `username` and `password`. Both properties are required.
+- [ ] An authentication workflow with functionality for account creation and login, implemented inside `api/auth/auth-router.js`.
+- [ ] A user has `username` and `password`. Both properties are required.
 - [ ] Middleware used to restrict access to resources for non authenticated requests. Use the file: `api/auth/auth-middleware.js` as a starting point.
 - [ ] A **minimum of 2 tests** per API endpoint. Use the file `api/server.test.js` as a starting point.
 
