@@ -26,7 +26,8 @@ router.post('/register', uniqueUsername, async (req, res) => {
 
     You are encouraged to build additional middlewares to take care of the endpoint's functionality.
 
-    1- On SUCCESSFUL registration, the response body should contain the following properties:
+    1- On SUCCESSFUL registration,
+      the response body should have the properties of following example:
       {
         "id": 1,
         "username": "Captain Marvel",
@@ -57,7 +58,8 @@ router.post('/login', usernameExists, async (req, res) => {
 
     You are encouraged to build additional middlewares to take care of the endpoint's functionality.
 
-    1- On SUCCESSFUL login, the response body should contain the following properties:
+    1- On SUCCESSFUL login,
+      the response body should have the properties of following example:
       {
         "message": "welcome, Captain Marvel",
         "token": "eyJhbGciOiJIUzI ... ETC ... vUPjZYDSa46Nwz8"
