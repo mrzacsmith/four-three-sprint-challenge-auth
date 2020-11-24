@@ -2,7 +2,6 @@
 const request = require('supertest')
 const server = require('./api/server')
 const db = require('./data/dbConfig')
-const jokes = require('./api/jokes/jokes-data')
 
 const userA = { username: 'foo', password: 'bar' }
 const userB = { username: 'fizz', password: 'buzz' }
