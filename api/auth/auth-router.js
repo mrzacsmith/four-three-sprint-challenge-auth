@@ -26,18 +26,18 @@ router.post('/register', uniqueUsername, async (req, res) => {
 
     You are encouraged to build additional middlewares to take care of the endpoint's functionality.
 
-    1- On SUCCESSFUL registration, the response body should look like the following example:
+    1- On SUCCESSFUL registration, the response body should contain the following properties:
       {
         "id": 1,
         "username": "Captain Marvel",
         "password": "2a$08$jG.wIGR2S4hxuyWNcBf9MuoC4y0dNy7qC/LbmtuFBSdIhWks2LhpG"
       }
 
-    2- On FAILED registration due to the username being taken,
-      the response body should include a string exactly as follows: "username taken".
-
-    3- On FAILED registration due to username or password missing from the request body,
+    2- On FAILED registration due to username or password missing from the request body,
       the response body should include a string exactly as follows: "username and password required".
+
+    3- On FAILED registration due to the username being taken,
+      the response body should include a string exactly as follows: "username taken".
   */
   try {
     const { username, password } = req.body;
@@ -52,13 +52,29 @@ router.post('/register', uniqueUsername, async (req, res) => {
 });
 
 router.post('/login', usernameExists, async (req, res) => {
-  // Implement
+  /*
+    IMPLEMENT
+
+    You are encouraged to build additional middlewares to take care of the endpoint's functionality.
+
+    1- On SUCCESSFUL login, the response body should contain the following properties:
+      {
+        "message": "welcome, Captain Marvel",
+        "token": "eyJhbGciOiJIUzI ... ETC ... vUPjZYDSa46Nwz8"
+      }
+
+    2- On FAILED login due to username or password missing from the request body,
+      the response body should include a string exactly as follows: "username and password required".
+
+    3- On FAILED login due to the username not existing in the db, or the password being incorrect,
+      the response body should include a string exactly as follows: "invalid credentials".
+  */
   try {
     const { body: { password }, user } = req;
     if (bcrypt.compareSync(password, user.password)) {
       res.json({ message: `welcome, ${user.username}`, token: generateToken(user) });
     } else {
-      res.status(401).json({ message: 'incorrect password' });
+      res.status(401).json({ message: 'invalid credentials' });
     }
   } catch (error) {
     res.status(500).json({ message: error.message });

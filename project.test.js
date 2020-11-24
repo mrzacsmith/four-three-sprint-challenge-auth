@@ -32,7 +32,6 @@ describe('server.js', () => {
       it('adds a new user with a bcrypted password to the users table on success', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const user = await db('users').first()
-        console.log(user)
         expect(user).toHaveProperty('id')
         expect(user).toHaveProperty('username')
         expect(user).toHaveProperty('password')
@@ -56,7 +55,7 @@ describe('server.js', () => {
         const { status } = await request(server).post('/api/auth/register').send(userA)
         expect(status + '').toMatch(/4|5/)
       })
-      it('responds with "username taken" if username exists in users table', async () => {
+      it('responds with "username taken" message if username exists in users table', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const { body } = await request(server).post('/api/auth/register').send(userA)
         expect(JSON.stringify(body)).toEqual(expect.stringMatching(/taken/i))
@@ -69,7 +68,7 @@ describe('server.js', () => {
         res = await request(server).post('/api/auth/register').send({ password: 'bar' })
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with "username and password required" if either are not sent', async () => {
+      it('responds with "username and password required" message if either is not sent', async () => {
         let res = await request(server).post('/api/auth/register').send({})
         expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
         res = await request(server).post('/api/auth/register').send({ username: 'foo' })
@@ -100,7 +99,7 @@ describe('server.js', () => {
         res = await request(server).post('/api/auth/login').send({ password: 'bar' })
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message if username or password are not sent', async () => {
+      it('responds with "username and password required" message if either is not sent', async () => {
         let res = await request(server).post('/api/auth/login').send({})
         expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
         res = await request(server).post('/api/auth/login').send({ username: 'foo' })
@@ -112,17 +111,17 @@ describe('server.js', () => {
         const res = await request(server).post('/api/auth/login').send(userB)
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message on non-existing username', async () => {
+      it('responds with "invalid credentials" message on non-existing username', async () => {
         const res = await request(server).post('/api/auth/login').send(userB)
-        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/exists/i))
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/invalid/i))
       })
       it('responds with a proper status code on invalid password', async () => {
         const res = await request(server).post('/api/auth/login').send(userC)
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message on invalid password', async () => {
+      it('responds with "invalid credentials" message on invalid password', async () => {
         const res = await request(server).post('/api/auth/login').send(userC)
-        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/incorrect/i))
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/invalid/i))
       })
     })
   })
@@ -155,7 +154,7 @@ describe('server.js', () => {
       it('responds with the jokes on valid token', async () => {
         const { body: { token } } = await request(server).post('/api/auth/login').send(userA)
         const res = await request(server).get('/api/jokes').set('Authorization', token)
-        expect(res.body).toEqual(jokes)
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching('Did you hear about the guy whose'))
       })
     })
   })
