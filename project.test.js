@@ -16,7 +16,6 @@ afterAll(async (done) => {
 
 it('sanity check jokes', () => {
   expect(true).not.toBe(false)
-  expect(JSON.stringify(jokes)).toEqual(expect.stringMatching(`I'm tired of following my dreams`));
 })
 
 describe('server.js', () => {
@@ -45,15 +44,35 @@ describe('server.js', () => {
         expect(body.password).toMatch(/^\$2[ayb]\$.{56}$/)
         expect(body.username).toBe(userA.username)
       })
-      it('responds with the proper code on successful registration', async () => {
+      it('responds with a proper status code on successful registration', async () => {
         const { status } = await request(server).post('/api/auth/register').send(userA)
         expect(status).toBe(201)
       })
-      it('responds with an error message and code if username exists in users table', () => {
-
+      it('responds with an error status code if username exists in users table', async () => {
+        await request(server).post('/api/auth/register').send(userA)
+        const { status } = await request(server).post('/api/auth/register').send(userA)
+        expect(status + '').toMatch(/4|5/)
       })
-      it('responds with an error message and code if username or password are not sent', () => {
-
+      it('responds with an error message if username exists in users table', async () => {
+        await request(server).post('/api/auth/register').send(userA)
+        const { body } = await request(server).post('/api/auth/register').send(userA)
+        expect(JSON.stringify(body)).toEqual(expect.stringMatching(/exists/i))
+      })
+      it('responds with an error status code if username or password are not sent', async () => {
+        let res = await request(server).post('/api/auth/register').send({})
+        expect(res.status + '').toMatch(/4|5/)
+        res = await request(server).post('/api/auth/register').send({ username: 'foo' })
+        expect(res.status + '').toMatch(/4|5/)
+        res = await request(server).post('/api/auth/register').send({ password: 'bar' })
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message if username or password are not sent', async () => {
+        let res = await request(server).post('/api/auth/register').send({})
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+        res = await request(server).post('/api/auth/register').send({ username: 'foo' })
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
+        res = await request(server).post('/api/auth/register').send({ password: 'bar' })
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
       })
     })
     describe('[POST] /api/auth/login', () => {
