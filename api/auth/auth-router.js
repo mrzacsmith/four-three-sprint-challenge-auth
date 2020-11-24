@@ -21,6 +21,24 @@ function generateToken(user) {
 }
 
 router.post('/register', uniqueUsername, async (req, res) => {
+  /*
+    IMPLEMENT
+
+    You are encouraged to build additional middlewares to take care of the endpoint's functionality.
+
+    1- On SUCCESSFUL registration, the response body should look like the following example:
+      {
+        "id": 1,
+        "username": "Captain Marvel",
+        "password": "2a$08$jG.wIGR2S4hxuyWNcBf9MuoC4y0dNy7qC/LbmtuFBSdIhWks2LhpG"
+      }
+
+    2- On FAILED registration due to the username being taken,
+      the response body should include a string exactly as follows: "username taken".
+
+    3- On FAILED registration due to username or password missing from the request body,
+      the response body should include a string exactly as follows: "username and password required".
+  */
   try {
     const { username, password } = req.body;
     const newUser = await User.insert({
@@ -34,6 +52,7 @@ router.post('/register', uniqueUsername, async (req, res) => {
 });
 
 router.post('/login', usernameExists, async (req, res) => {
+  // Implement
   try {
     const { body: { password }, user } = req;
     if (bcrypt.compareSync(password, user.password)) {

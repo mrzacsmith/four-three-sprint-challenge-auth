@@ -32,6 +32,7 @@ describe('server.js', () => {
       it('adds a new user with a bcrypted password to the users table on success', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const user = await db('users').first()
+        console.log(user)
         expect(user).toHaveProperty('id')
         expect(user).toHaveProperty('username')
         expect(user).toHaveProperty('password')
@@ -48,17 +49,17 @@ describe('server.js', () => {
       })
       it('responds with a proper status code on success', async () => {
         const { status } = await request(server).post('/api/auth/register').send(userA)
-        expect(status).toBe(201)
+        expect(status + '').toMatch(/2/)
       })
       it('responds with an error status code if username exists in users table', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const { status } = await request(server).post('/api/auth/register').send(userA)
         expect(status + '').toMatch(/4|5/)
       })
-      it('responds with an error message if username exists in users table', async () => {
+      it('responds with "username taken" if username exists in users table', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const { body } = await request(server).post('/api/auth/register').send(userA)
-        expect(JSON.stringify(body)).toEqual(expect.stringMatching(/exists/i))
+        expect(JSON.stringify(body)).toEqual(expect.stringMatching(/taken/i))
       })
       it('responds with an error status code if username or password are not sent', async () => {
         let res = await request(server).post('/api/auth/register').send({})
@@ -68,7 +69,7 @@ describe('server.js', () => {
         res = await request(server).post('/api/auth/register').send({ password: 'bar' })
         expect(res.status + '').toMatch(/4|5/)
       })
-      it('responds with an error message if username or password are not sent', async () => {
+      it('responds with "username and password required" if either are not sent', async () => {
         let res = await request(server).post('/api/auth/register').send({})
         expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/required/i))
         res = await request(server).post('/api/auth/register').send({ username: 'foo' })
