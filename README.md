@@ -12,36 +12,29 @@ _You have **three hours** to complete this challenge. Plan your time accordingly
 
 ## Introduction
 
-In this challenge, you build a real wise-guy application. _Dad jokes_ are all the rage these days. Currently the application is trying to receive some `Dad Jokes`, however we are locked out.
+In this challenge, you build a real wise-guy application. _Dad jokes_ are all the rage these days.
 
-Implement an User Authentication System. Hash user's passwords before saving the user to the database. Use `JSON Web Tokens` or `Sessions and Cookies` to persist authentication across requests.
-
-### Commits
-
-Commit your code regularly and meaningfully. This helps both you (in case you ever need to return to old code for any number of reasons) and your team lead as the evaluate your solution.
+Implement a User Authentication System. Hash the user's password using `bcryptjs` before saving the user to the database. Use JSON Web Tokens and the `jsonwebtoken` library to persist authentication across requests.
 
 ## Interview Questions
 
-Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
+Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics.
 
 1. Differences between using _sessions_ or _JSON Web Tokens_ for authentication.
+2. What does `bcryptjs` do to help us store passwords in a secure manner?
+3. How are unit tests different from integration and end-to-end testing?
+4. How does _Test Driven Development_ change the way we write applications and tests?
 
-2. What does `bcrypt` do to help us store passwords in a secure manner.
-
-3. How are unit tests different from integration and end-to-end testing.
-
-4. How _Test Driven Development_ changes the way we write applications and tests.
-
-You are expected to be able to answer questions in these areas. Your responses contribute to your Sprint Challenge grade.
+You are expected to be able to answer questions in these areas.
 
 ## Instructions
 
 ### Task 1: Project Set Up
 
-- [ ] Create a forked copy of this project
-- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!)
+- [ ] Create a forked copy of this project.
+- [ ] Clone your OWN version of the repository (Not Lambda's by mistake!).
 - [ ] Create a new branch: git checkout -b `<firstName-lastName>`.
-- [ ] Implement the project on your newly created `<firstName-lastName>` branch, committing changes regularly
+- [ ] Implement the project on your newly created `<firstName-lastName>` branch, **committing changes regularly**.
 - [ ] Push commits: git push origin `<firstName-lastName>`
 
 ### Task 2: Project Requirements
