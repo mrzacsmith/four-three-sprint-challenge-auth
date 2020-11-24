@@ -8,8 +8,6 @@ const userA = { username: 'foo', password: 'bar' }
 const userB = { username: 'fizz', password: 'buzz' }
 const userC = { username: 'foo', password: 'buzz' }
 
-let registeredUserA
-
 beforeAll(async () => {
   await db.migrate.latest()
 })
@@ -31,7 +29,7 @@ describe('server.js', () => {
       beforeEach(async () => {
         await db('users').truncate()
       })
-      it('can add a new user with a bcrypted password to the users table', async () => {
+      it('adds a new user with a bcrypted password to the users table on success', async () => {
         await request(server).post('/api/auth/register').send(userA)
         const user = await db('users').first()
         expect(user).toHaveProperty('id')
@@ -40,7 +38,7 @@ describe('server.js', () => {
         expect(user.password).toMatch(/^\$2[ayb]\$.{56}$/)
         expect(user.username).toBe(userA.username)
       })
-      it('responds with the newly created user on successful registration', async () => {
+      it('responds with the new user with a bcrypted password on success', async () => {
         const { body } = await request(server).post('/api/auth/register').send(userA)
         expect(body).toHaveProperty('id')
         expect(body).toHaveProperty('username')
@@ -48,7 +46,7 @@ describe('server.js', () => {
         expect(body.password).toMatch(/^\$2[ayb]\$.{56}$/)
         expect(body.username).toBe(userA.username)
       })
-      it('responds with a proper status code on successful registration', async () => {
+      it('responds with a proper status code on success', async () => {
         const { status } = await request(server).post('/api/auth/register').send(userA)
         expect(status).toBe(201)
       })
@@ -83,7 +81,6 @@ describe('server.js', () => {
       beforeEach(async () => {
         await db('users').truncate()
         await request(server).post('/api/auth/register').send(userA)
-        registeredUserA = await db('users').first()
       })
       it('responds with a proper status code on successful login', async () => {
         const res = await request(server).post('/api/auth/login').send(userA)
@@ -133,6 +130,32 @@ describe('server.js', () => {
   // 👉 JOKES
   // 👉 JOKES
   describe('jokes endpoint', () => {
-
+    describe('[GET] /api/jokes', () => {
+      beforeEach(async () => {
+        await db('users').truncate()
+        await request(server).post('/api/auth/register').send(userA)
+      })
+      it('responds with an error status code on missing token', async () => {
+        const res = await request(server).get('/api/jokes')
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message on missing token', async () => {
+        const res = await request(server).get('/api/jokes')
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/wants/i))
+      })
+      it('responds with an error status code on invalid token', async () => {
+        const res = await request(server).get('/api/jokes').set('Authorization', 'bad token')
+        expect(res.status + '').toMatch(/4|5/)
+      })
+      it('responds with an error message on invalid token', async () => {
+        const res = await request(server).get('/api/jokes').set('Authorization', 'bad token')
+        expect(JSON.stringify(res.body)).toEqual(expect.stringMatching(/valid/i))
+      })
+      it('responds with the jokes on valid token', async () => {
+        const { body: { token } } = await request(server).post('/api/auth/login').send(userA)
+        const res = await request(server).get('/api/jokes').set('Authorization', token)
+        expect(res.body).toEqual(jokes)
+      })
+    })
   })
 })
