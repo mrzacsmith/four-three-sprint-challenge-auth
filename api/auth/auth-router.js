@@ -62,7 +62,7 @@ router.post('/login', usernameExists, async (req, res) => {
     IMPLEMENT
     You are welcome to build additional middlewares to help with the endpoint's functionality.
 
-    1- In order to login to an existing account the client must provide `username` and `password`:
+    1- In order to log into an existing account the client must provide `username` and `password`:
       {
         "username": "Captain Marvel",
         "password": "foobar"
