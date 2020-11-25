@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET || 'the secret';
 
 module.exports = (req, res, next) => {
-    /*
+  /*
     IMPLEMENT
 
     1- On valid token in the Authorization header, call next.
