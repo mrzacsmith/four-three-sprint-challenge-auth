@@ -9,4 +9,5 @@ If you make changes, make sure that all tests are passing in your local, and tha
 1. Run `npm i`
 2. Run `npm run migrate`
 3. Run `npm run server`
-4. Run `npm test`
+4. Run `npm test` runs the students' tests
+5. Run `npm codegrade` runs the codegrade tests
