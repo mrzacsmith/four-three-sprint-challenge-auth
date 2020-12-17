@@ -33,7 +33,7 @@ NODE_ENV=testing cg-jest run -- project.test.js --runInBand --forceExit
 
 #### Checking student tests
 
-Weight: 0.9
+Weight: 0.1
 
 ```bash
 NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
