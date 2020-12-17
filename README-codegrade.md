@@ -25,15 +25,15 @@ mv $FIXTURES/* . && npm install
 
 #### Checking student code to grade compliance with project specifications
 
-7 points out of 10
+Weight: 0.9
 
 ```bash
 NODE_ENV=testing cg-jest run -- project.test.js --runInBand --forceExit
 ```
 
-3 points out of 10
-
 #### Checking student tests
+
+Weight: 0.9
 
 ```bash
 NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
