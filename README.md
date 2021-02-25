@@ -43,7 +43,6 @@ Your finished project must include all of the following requirements (further in
 **Notes:**
 
 - Execute all tests locally (Codegrade's and your own) by running `npm test`.
-- Do not execute both testing scripts at the same time, as they both need access to the same database.
 - You are welcome to create additional files but **do not move or rename existing files** or folders.
 - Do not alter your `package.json` file except to install extra libraries. The "test" script has been added for you.
 - The database already has the `users` table, but if you run into issues, the migration is available.
