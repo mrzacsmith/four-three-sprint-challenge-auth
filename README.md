@@ -38,7 +38,7 @@ Your finished project must include all of the following requirements (further in
 
 **Notes:**
 
-- Execute all tests locally (Codegrade's and your own) by running `npm test`.
+- Execute tests locally by running `npm test`.
 - Do not exceed 2^8 rounds of hashing with `bcryptjs`.
 - If you use environment variables make sure to provide fallbacks in the code (e.g. `process.env.SECRET || "shh"`).
 - You are welcome to create additional files but **do not move or rename existing files** or folders.
