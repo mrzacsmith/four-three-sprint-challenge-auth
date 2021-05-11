@@ -40,7 +40,7 @@ mv $FIXTURES/* . && npm install
 
 #### Checking student code to grade compliance with project specifications
 
-Weight: 0.9
+Weight: 0.8
 
 ```bash
 NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
@@ -48,7 +48,7 @@ NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
 
 #### Checking student tests
 
-Weight: 0.1
+Weight: 0.2
 
 ```bash
 NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
