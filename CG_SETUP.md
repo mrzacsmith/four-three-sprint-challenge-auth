@@ -1,55 +1,78 @@
-# Codegrade
+# Codegrade Setup
 
-This is the solution repo for `https://github.com/LambdaSchool/web-sprint-challenge-authentication-and-testing`
+This is the solution repo for [Authentication and Testing](https://github.com/LambdaSchool/web-sprint-challenge-authentication-and-testing) Sprint Challenge Submission.
 
-## Project Setup
+Whenever setting up a Codegrade assignment or importing settings from another assignment:
 
-1. Run `npm i`
-2. Run `npm run migrate`
-3. Run `npm run seed`
-4. Run `npm run server`
-5. Run `npm test`
+1. Make sure that rubrics, fixtures and scripts match the ones in **this repo**.
+2. Re-upload to Codegrade any items that don't match exactly the ones in this repo.
+3. Run tests locally, and push an empty commit to Codegrade to verify that this repo passes all tests.
 
-## Codegrade Setup
+## 1- Fixtures
 
-### Fixtures
+### Non-Student-Facing
 
-These are the files that Codegrade needs:
+- [codegrade_mvp.test.js](./codegrade_mvp.test.js)
 
-1. `codegrade_mvp.test.js`
-2. `jest.config.js`
-
-If you make changes to the project or the tests, please go through this checklist:
-
-1. Make sure that all tests are passing in your local.
-2. Upload the updated fixtures to your template Codegrade assignment.
-
-### Global setup script to run
+## 2- Global Setup Script
 
 ```bash
 cg-jest install
 ```
 
-### Per-student setup script to run
+## 3- Per-Student Setup Script
 
 ```bash
 mv $FIXTURES/* . && npm install
 ```
 
-### Programs to test
-
-#### Checking student code to grade compliance with project specifications
-
-Weight: 0.8
+## 4- Auto Tests
 
 ```bash
-NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
+NODE_ENV=testing cg-jest run -- --runInBand --forceExit
 ```
 
-#### Checking student tests
+## 5- Rubric
 
-Weight: 0.2
+### Auto Tests (8 points)
 
-```bash
-NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
-```
+>Automatic tests are run against your branch, to check how closely your work matches specification.
+It is crucial that test your API manually using HTTPie or Postman, and troubleshoot using log statements or the debugger.
+Do not rely on the automatic tests alone to check your progress!
+
+### Introduction to Authentication
+
+>Store passwords securely.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Student stores passwords as plain text. |
+| Met           | 1      | Student stores passwords as a hash and uses bcryptjs to verify password on login. |
+
+### Using JSON Web Tokens (JWT)
+
+>Implement authentication workflow.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Student does not implement authentication flow or implement's broken authentication. |
+| Met           | 1      | Student successfully uses JSON Web Tokens to implement authentication that includes account registration and login. |
+
+### Testing
+
+>Write tests for the endpoints.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | Student does not write 2 tests for each endpoint or written tests are not functional. |
+| Met           | 1      | Student writes at least 2 tests for each endpoint and tests are functional and meaningful. |
+
+### Code Quality
+
+>Write code that is straightforward and easy to follow.
+
+| Grade         | Points | Description |
+|---------------|:------:|-------------|
+| Not Yet       | 0      | The code is difficult to read and formatted poorly. |
+| Met           | 1      | The code is easy to read, properly formatted but does not use middleware functions so it could be made DRYer. |
+| Flying Colors | 2      | Middleware functions are used to handle edge cases and errors, making the code very DRY. |
