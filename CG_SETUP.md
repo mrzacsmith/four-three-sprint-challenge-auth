@@ -28,13 +28,21 @@ mv $FIXTURES/* . && npm install
 
 ## 4- Auto Tests
 
+### Learner Tests - Weight 0.2
+
 ```bash
-NODE_ENV=testing cg-jest run -- --runInBand --forceExit
+NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
+```
+
+### Instructor Tests - Weight 0.8
+
+```bash
+NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
 ```
 
 ## 5- Rubric
 
-### Auto Tests (8 points)
+### Auto Tests (5 points)
 
 >Automatic tests are run against your branch, to check how closely your work matches specification.
 It is crucial that test your API manually using HTTPie or Postman, and troubleshoot using log statements or the debugger.
