@@ -29,13 +29,13 @@ mv $FIXTURES/* . && npm install
 
 ## 4- Auto Tests
 
-### Learner Tests - Weight 0.2
+### Learner Tests - Weight 0.1
 
 ```bash
 NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
 ```
 
-### Instructor Tests - Weight 0.8
+### Instructor Tests - Weight 0.9
 
 ```bash
 NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
