@@ -38,7 +38,7 @@ NODE_ENV=testing cg-jest run -- api/server.test.js --runInBand --forceExit
 ### Instructor Tests - Weight 0.9
 
 ```bash
-NODE_ENV=testing cg-jest run -- codegrade_mvp.test.js --runInBand --forceExit
+NODE_ENV=testing cg-jest run -- codegrade_mvp*.test.js --runInBand --forceExit
 ```
 
 ## 5- Rubric
