@@ -46,6 +46,7 @@ NODE_ENV=testing cg-jest run -- codegrade_mvp*.test.js --runInBand --forceExit
 ### Auto Tests (5 points)
 
 >Automatic tests are run against your branch, to check how closely your work matches specification.
+The tests you write as part of the assignment, which can be run locally with `npm test`, will also be executed by Codegrade.
 It is crucial that test your API manually using HTTPie or Postman, and troubleshoot using log statements or the debugger.
 Do not rely on the automatic tests alone to check your progress!
 
@@ -55,7 +56,7 @@ Do not rely on the automatic tests alone to check your progress!
 
 | Grade         | Points | Description |
 |---------------|:------:|-------------|
-| Not Yet       | 0      | Student stores passwords as plain text. |
+| Not Yet       | 0      | Student does not store passwords, or stores them as plain text. |
 | Met           | 1      | Student stores passwords as a hash and uses bcryptjs to verify password on login. |
 
 ### Using JSON Web Tokens (JWT)
@@ -64,7 +65,7 @@ Do not rely on the automatic tests alone to check your progress!
 
 | Grade         | Points | Description |
 |---------------|:------:|-------------|
-| Not Yet       | 0      | Student does not implement authentication flow or implement's broken authentication. |
+| Not Yet       | 0      | Student does not implement authentication flow or implements broken authentication. |
 | Met           | 1      | Student successfully uses JSON Web Tokens to implement authentication that includes account registration and login. |
 
 ### Testing
