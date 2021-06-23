@@ -13,6 +13,7 @@ Whenever setting up a Codegrade assignment or importing settings from another as
 ### Non-Student-Facing
 
 - [codegrade_mvp.test.js](./codegrade_mvp.test.js)
+- [codegrade_mvp1.test.js](./codegrade_mvp1.test.js)
 
 ## 2- Global Setup Script
 
