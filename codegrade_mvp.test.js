@@ -14,8 +14,9 @@ afterAll(async () => {
   await db.destroy()
 })
 
-test('[0] sanity check jokes', () => {
-  expect(true).not.toBe(false)
+test('[0] Is the latest version of the project', () => {
+  const pjson = require('./package.json')
+  expect(pjson.version).toBe('0.0.1')
 })
 
 describe('server.js', () => {
